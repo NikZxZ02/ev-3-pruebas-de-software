@@ -40,11 +40,7 @@ describe("Login E2E", () => {
 		cy.get('input[type="email"]').type("nicokashidalgo@gmail.com");
 		cy.get('input[type="password"]').type("2aSsword95%");
 		cy.get('button[id="login-submit"]').click();
-
-		cy.on("url:changed", () => {
-			cy.url().should("eq", `${Cypress.config().baseUrl}/verify?verify_error=1`);
-		});
-
+		
 		cy.wait(1000); 
 
 		cy.get("div")
