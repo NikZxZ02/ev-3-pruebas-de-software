@@ -61,14 +61,18 @@ describe("Home E2E", () => {
 	it("Home: Blocked user", () => {
 		cy.login("n.hidalgo02@ufromail.cl", "2aSsword95%");
 		cy.visit(`${Cypress.config().baseUrl}/`);
-		cy.get('button.q-btn.q-btn-item.non-selectable.no-outline.q-btn--standard.q-btn--rectangle.bg-red.text-white.q-btn--actionable.q-focusable.q-hoverable').click();
+		cy.get("div")
+			.find('button[class="q-btn q-btn-item non-selectable no-outline q-btn--standard q-btn--rectangle bg-red text-white q-btn--actionable q-focusable q-hoverable"]').should("contain.text", "block").click();
+		//cy.get('button.q-btn.q-btn-item.non-selectable.no-outline.q-btn--standard.q-btn--rectangle.bg-red.text-white.q-btn--actionable.q-focusable.q-hoverable').click(); Por alguna razon no encuentra el boton de esta forma
 		cy.get('div[class="q-item__label q-item__label--caption text-caption"]').should('contain', 'This user is blocked');
 	});
 
 	it("Home: Unlock user", () => {
 		cy.login("n.hidalgo02@ufromail.cl", "2aSsword95%");
 		cy.visit(`${Cypress.config().baseUrl}/`);
-		cy.get('button.q-btn.q-btn-item.non-selectable.no-outline.q-btn--standard.q-btn--rectangle.bg-green.text-white.q-btn--actionable.q-focusable.q-hoverable').click();
+		cy.get("div")
+			.find('button[class="q-btn q-btn-item non-selectable no-outline q-btn--standard q-btn--rectangle bg-green text-white q-btn--actionable q-focusable q-hoverable"]').should("contain.text", "unblock").click();
+		//cy.get('button.q-btn.q-btn-item.non-selectable.no-outline.q-btn--standard.q-btn--rectangle.bg-green.text-white.q-btn--actionable.q-focusable.q-hoverable').click();
 		cy.get('div[class="q-item__label q-item__label--caption text-caption"]').should('contain', 'This user is unblocked');
 	});
 });
