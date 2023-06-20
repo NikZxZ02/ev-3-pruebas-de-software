@@ -29,7 +29,7 @@ describe("Home E2E", () => {
 
 	it("Home incorrect by user not verified", () => {
 		cy.window().then((win) => {
-			win.localStorage.setItem("token","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTE0MGM1OTFjMWNjNzRlYmQ3NzI4ZCIsImlhdCI6MTY4NzI0MDkwMywiZXhwIjoxNjg3MzI3MzAzfQ.rPyNAl5dvAXCRCY17QMMJc8S175qgiW-_r0BQFn4iIg");
+			win.localStorage.setItem("token","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTEzZmEyOTFjMWNjNzRlYmQ3NzI3MyIsImlhdCI6MTY4NzI0NzU4OCwiZXhwIjoxNjg3MzMzOTg4fQ.S_9tI66TgV5tnQAAoTdox0hlI730Fw1qHarUWRLDlQw");
 		});
 
 		cy.visit("http://3.89.221.7/");
