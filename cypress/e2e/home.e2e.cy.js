@@ -2,7 +2,7 @@ describe("Home E2E", () => {
 	it("Home correct", () => {
 		cy.login("john@example.com", "2aSsword95%");
 
-		cy.visit("/");
+		cy.visit("http://3.89.221.7/");
 
 		cy.get(".user-name").should("have.text", "John Doe");
 		cy.get(".user-rut").should("have.text", "22.222****");
@@ -14,7 +14,7 @@ describe("Home E2E", () => {
 			win.localStorage.clear();
 		});
 
-		cy.visit("/");
+		cy.visit("http://3.89.221.7/");
 
 		cy.get("div")
 			.find(".q-notification")
