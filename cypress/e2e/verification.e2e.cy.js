@@ -1,11 +1,11 @@
 const TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTIzMTgwOTFjMWNjNzRlYmQ3ODJjZCIsImlhdCI6MTY4NzMwMjUzOCwiZXhwIjoxNjg3Mzg4OTM4fQ.n9jovDEsczdyqJVjMbJuyOGBFGHYPvldO7sbeiioKgc";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTI0ZjZiOTFjMWNjNzRlYmQ3ODU1NSIsImlhdCI6MTY4NzMxMDE5OSwiZXhwIjoxNjg3Mzk2NTk5fQ._3jyfqeFizuBZToQFbqr-NZsp6l8unDKqAtZj_yVhUo";
 
 const URL = Cypress.config().baseUrl;
 
 describe("Verification E2E", () => {
   it("Verification incorrect code not valid", () => {
-    cy.visit(`${URL}`, {
+    cy.visit(`${URL}/`, {
       onBeforeLoad(win) {
         win.localStorage.setItem("token", TOKEN);
       },
@@ -18,7 +18,10 @@ describe("Verification E2E", () => {
   });
 
   it("Correct verification", () => {
-    cy.visit(`${URL}`, {
+    cy.window().then((win) => {
+      win.localStorage.clear();
+    });
+    cy.visit(`${URL}/`, {
       onBeforeLoad(win) {
         win.localStorage.setItem("token", TOKEN);
       },
@@ -27,12 +30,20 @@ describe("Verification E2E", () => {
     cy.url().should("include", "/verify");
     cy.get('input[id="verify-code"]').type("asd123");
     cy.get('button[type="submit"]').click();
-    cy.contains("Verification successful").should("be.visible");
+    //cy.contains("Verification successful").should("be.visible");
+    cy.get("div")
+      .find(".q-notification")
+      .should("be.visible")
+      .and("contain.text", "Verification successful");
 
     cy.url().should("eq", `${URL}/`);
   });
 
   it("Verification not necessary", () => {
+    cy.window().then((win) => {
+      win.localStorage.clear();
+    });
+
     cy.visit(`${URL}/verify?verify_error=1`, {
       onBeforeLoad(win) {
         win.localStorage.setItem("token", TOKEN);
